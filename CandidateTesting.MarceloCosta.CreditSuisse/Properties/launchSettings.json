@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "CandidateTesting.MarceloCosta.Convert": {
+      "commandName": "Project",
+      "commandLineArgs": "./AppData/InputSample.txt ./AppData/OutputSample.txt"
+    }
+  }
+}
