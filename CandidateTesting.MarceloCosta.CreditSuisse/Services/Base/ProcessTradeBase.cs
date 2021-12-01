@@ -13,7 +13,7 @@ namespace CandidateTesting.MarceloCosta.CreditSuisse.Services.Base
   {
     private readonly InputBase _inputBase;
     private readonly OutputBase _outputBase;
-    private readonly IOrderedEnumerable<ICategory> _categoryInstances;
+    private readonly List<ICategory> _categoryInstances;
 
     protected ProcessTradeBase(InputBase inputBase, OutputBase outputBase)
     {
@@ -22,13 +22,13 @@ namespace CandidateTesting.MarceloCosta.CreditSuisse.Services.Base
       _categoryInstances = GetCategoryInstances();
     }
 
-    private IOrderedEnumerable<ICategory> GetCategoryInstances()
+    public virtual List<ICategory> GetCategoryInstances()
     {
       var instancesCategory = Assembly.GetExecutingAssembly().GetTypes().Where(c =>
           c.GetInterfaces().Contains(typeof(ICategory)) &&
           c.GetConstructor(Type.EmptyTypes) != null)
         .Select(c => Activator.CreateInstance(c) as ICategory)
-        .OrderBy(o => o?.OrderExecution);
+        .OrderBy(o => o?.OrderExecution).ToList();
       return instancesCategory;
     }
 
